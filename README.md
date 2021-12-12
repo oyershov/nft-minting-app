@@ -53,7 +53,8 @@ Note: this dapp is designed to work with the intended NFT smart contract, that o
   "NETWORK": {
     "NAME": "Polygon",
     "SYMBOL": "Matic",
-    "ID": 137
+    "ID": 137,
+    "ID_HEX": "0x89"
   },
   "NFT_NAME": "The Stripes NFT",
   "SYMBOL": "TSNFT",
@@ -62,8 +63,7 @@ Note: this dapp is designed to work with the intended NFT smart contract, that o
   "DISPLAY_COST": 0.075,
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/the-stripes-nft",
-  "SHOW_BACKGROUND": true
+  "MARKETPLACE_LINK": "https://opensea.io/collection/the-stripes-nft"
 }
 ```
 

@@ -124,8 +124,7 @@ table {
 }
 
 @font-face {
-  font-family: "coder";
-  src: local("coder"), url(font.woff) format("woff");
+  font-family: "Helvetica, sans-serif";
 }
 
 body {

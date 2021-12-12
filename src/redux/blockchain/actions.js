@@ -2,7 +2,8 @@
 import Web3EthContract from "web3-eth-contract";
 import Web3 from "web3";
 // log
-import { fetchData } from "../data/dataActions";
+import { fetchData } from "../contract-data/actions";
+import store from "../store";
 
 const connectRequest = () => {
   return {
@@ -34,6 +35,7 @@ const updateAccountRequest = (payload) => {
 export const connect = () => {
   return async (dispatch) => {
     dispatch(connectRequest());
+    const { config } = await store.getState().config;
     const abiResponse = await fetch("/config/abi.json", {
       headers: {
         "Content-Type": "application/json",
@@ -41,13 +43,6 @@ export const connect = () => {
       },
     });
     const abi = await abiResponse.json();
-    const configResponse = await fetch("/config/config.json", {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
-    const CONFIG = await configResponse.json();
     const { ethereum } = window;
     const metamaskIsInstalled = ethereum && ethereum.isMetaMask;
     if (metamaskIsInstalled) {
@@ -57,13 +52,26 @@ export const connect = () => {
         const accounts = await ethereum.request({
           method: "eth_requestAccounts",
         });
-        const networkId = await ethereum.request({
+
+        let networkId = await ethereum.request({
           method: "net_version",
         });
-        if (networkId == CONFIG.NETWORK.ID) {
+
+        if (networkId != config.NETWORK.ID) {
+          await ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: config.NETWORK.ID_HEX }],
+          });
+
+          networkId = await ethereum.request({
+            method: "net_version",
+          });
+        }
+
+        if (networkId == config.NETWORK.ID) {
           const SmartContractObj = new Web3EthContract(
             abi,
-            CONFIG.CONTRACT_ADDRESS
+            config.CONTRACT_ADDRESS
           );
           dispatch(
             connectSuccess({
@@ -76,18 +84,20 @@ export const connect = () => {
           ethereum.on("accountsChanged", (accounts) => {
             dispatch(updateAccount(accounts[0]));
           });
-          ethereum.on("chainChanged", () => {
-            window.location.reload();
+          ethereum.on("chainChanged", (chainId) => {
+            if (chainId != config.NETWORK.ID) {
+              window.location.reload();
+            }
           });
           // Add listeners end
         } else {
-          dispatch(connectFailed(`Change network to ${CONFIG.NETWORK.NAME}.`));
+          dispatch(connectFailed(`Change network to ${config.NETWORK.NAME}.`));
         }
       } catch (err) {
         dispatch(connectFailed("Something went wrong."));
       }
     } else {
-      dispatch(connectFailed("Install Metamask."));
+      dispatch(connectFailed("Please, install Metamask."));
     }
   };
 };

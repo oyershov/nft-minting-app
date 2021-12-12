@@ -1,11 +1,15 @@
 import { applyMiddleware, compose, createStore, combineReducers } from "redux";
 import thunk from "redux-thunk";
-import blockchainReducer from "./blockchain/blockchainReducer";
-import dataReducer from "./data/dataReducer";
+import blockchainReducer from "./blockchain/reducers";
+import configReducer from "./config/reducers";
+import dataReducer from "./contract-data/reducers";
+import tokenReducer from "./user-token/reducers";
 
 const rootReducer = combineReducers({
   blockchain: blockchainReducer,
+  config: configReducer,
   data: dataReducer,
+  token: tokenReducer
 });
 
 const middleware = [thunk];
