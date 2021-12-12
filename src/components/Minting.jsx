@@ -32,7 +32,11 @@ const Minting = () => {
       })
       .once("error", (err) => {
         console.log(err);
-        setStatus("Sorry, something went wrong please try again later.");
+        if (err?.message) {
+          setStatus(err.message);
+        } else {
+          setStatus("Sorry, something went wrong please try again later.");
+        }
         setClaimingNft(false);
       })
       .then((receipt) => {

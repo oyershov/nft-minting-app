@@ -94,7 +94,11 @@ export const connect = () => {
           dispatch(connectFailed(`Change network to ${config.NETWORK.NAME}.`));
         }
       } catch (err) {
-        dispatch(connectFailed("Something went wrong."));
+        if (err?.message) {
+          dispatch(connectFailed(err.message));
+        } else {
+          dispatch(connectFailed("Something went wrong."));
+        }
       }
     } else {
       dispatch(connectFailed("Please, install Metamask."));

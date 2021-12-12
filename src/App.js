@@ -14,7 +14,7 @@ export const StyledMain = styled.div`
   }
 `
 
-const EVENT_START_DATE = 'Mon, 20 Dec 2021 00:00:00 GMT'
+const EVENT_START_DATE = 'Mon, 10 Dec 2021 00:00:00 GMT'
 const EVENT_END_DATE = 'Mon, 20 Dec 2021 23:59:59 GMT'
 
 function App() {
