@@ -12,7 +12,10 @@ const DEFAULT_CONFIG = {
   MAX_SUPPLY: 1,
   GAS_LIMIT: 0,
   MARKETPLACE: "",
-  MARKETPLACE_LINK: ""
+  MARKETPLACE_LINK: "",
+  ADDRESS_COLLECTING_FORM: "",
+  EVENT_START_DATE: "",
+  EVENT_END_DATE: ""
 };
 
 const initialState = {

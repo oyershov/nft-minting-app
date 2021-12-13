@@ -14,9 +14,6 @@ export const StyledMain = styled.div`
   }
 `
 
-const EVENT_START_DATE = 'Mon, 10 Dec 2021 00:00:00 GMT'
-const EVENT_END_DATE = 'Mon, 20 Dec 2021 23:59:59 GMT'
-
 function App() {
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
@@ -24,8 +21,8 @@ function App() {
   const { accentureAccessToken } = useSelector((state) => state.token);
 
   const dateNow = new Date();
-  const eventStartDate = new Date(EVENT_START_DATE);
-  const eventEndDate = new Date(EVENT_END_DATE);
+  const eventStartDate = new Date(config.EVENT_START_DATE);
+  const eventEndDate = new Date(config.EVENT_END_DATE);
 
   useEffect(() => {
     dispatch(fetchConfig())
@@ -48,7 +45,7 @@ function App() {
 
   useEffect(() => {
     if (accentureAccessToken === 'no-token') {
-      window.location.href = "/login";
+      window.location.href = "/xmas-login";
     }
   }, [accentureAccessToken]);
 
