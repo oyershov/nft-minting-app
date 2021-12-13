@@ -1,0 +1,25 @@
+@import "./reset.css";
+@import "./fonts.css";
+
+.s2 {
+  &-text {
+    &--variant-1 {
+      color: #000;
+      font-family: 'OggText';
+      font-size: 60px;
+      font-style: normal;
+      font-weight: normal;
+      line-height: 67px;
+      margin-bottom: 40px;
+    }
+
+    &--variant-2 {
+      color: #000;
+      font-family: 'SuisseIntl';
+      font-style: normal;
+      font-weight: normal;
+      font-size: 35px;
+      line-height: 47px;
+    }
+  }
+}

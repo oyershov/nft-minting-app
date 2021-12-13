@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import image6 from './assets/images/image6.png';
 import EventPhase from "./components/EventPhase";
 import Minting from "./components/Minting";
 import WalletAddressCollecting from "./components/WalletAddressCollecting";
@@ -9,9 +10,19 @@ import { fetchData } from "./redux/contract-data/actions";
 import { fetchToken } from "./redux/user-token/actions";
 
 export const StyledMain = styled.div`
-  * {
-    margin-bottom: 20px;
-  }
+`
+
+const StyledImageWrap = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: -400px;
+  position: absolute;
+  width: 100%;
+`
+
+const StyledImage = styled.img`
+  max-height: 460px;
 `
 
 function App() {
@@ -77,6 +88,9 @@ function App() {
           Check the collection at {config.MARKETPLACE}
         </a>
       )}
+      <StyledImageWrap>
+        <StyledImage src={image6} alt="Ball" />
+      </StyledImageWrap>
       <p>How to</p>
       <p>Q&A</p>
       <p>Team</p>
