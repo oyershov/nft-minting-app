@@ -38,6 +38,7 @@ Note: this dapp is designed to work with the intended NFT smart contract, that o
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
   "MARKETPLACE_LINK": "https://opensea.io/collection/the-stripes-nft",
+    "MARKETPLACE_ITEMS_LINK": "https://polygonscan.com/token/0x8Fd6e0bA0B05112F000037A7004392Bed9F062b8",
   "ADDRESS_COLLECTING_FORM": "",
   "EVENT_START_DATE": "",
   "EVENT_END_DATE": ""

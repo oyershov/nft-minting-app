@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import Timer from './Timer';
 
 const StyledWrapper = styled.div`
+  align-items: center;
   background: #000;
+  display: flex;
+  justify-content: center;
   padding 200px 0;
 `
 
@@ -17,7 +20,8 @@ const StyledContainer = styled.div`
   justify-content: flex-start;
   max-width: 990px;
   margin: 0 5vw;
-  padding: 165px 86px 271px 86px;
+  padding: 200px 86px 271px 86px;
+  width: 100%;
 `
 
 const StyledSubmitLink = styled.a`
@@ -61,10 +65,10 @@ const WalletAddressCollecting = () => {
   return (
     <StyledWrapper>
       <StyledContainer>
-        <Timer />
+        <Timer currentEventPhase={1} />
         <p className="s2-text--variant-1">Send your wallet address to get it for free or pay the gas fees by yourself.</p>
         <p className="s2-text--variant-2">To make sure it is and remains a gift, we will send some cryptocyrency (Matic) to your wallet in advance. To do so we need the address of your wallet. But not worry: the addresses are anonymous and we delete them immediately after the transfer of the cryptocurrency.</p>
-        <StyledSubmitLink target="_blank" href={config.ADDRESS_COLLECTING_FORM}>Yes, I want Matic →</StyledSubmitLink>
+        <StyledSubmitLink target="_blank" href={config.ADDRESS_COLLECTING_FORM}>→ Yes, I want Matic</StyledSubmitLink>
         <StyledInfoLink target="_blank" href="#">Where can I find my address?</StyledInfoLink>
         <StyledInfoLink target="_blank" href="#">How to install MetaMask wallet?</StyledInfoLink>
         <StyledInfoLink target="_blank" href="#">(Download MetaMask for Firefox)</StyledInfoLink>

@@ -13,6 +13,7 @@
   "GAS_LIMIT": 285000,
   "MARKETPLACE": "Opeansea",
   "MARKETPLACE_LINK": "https://opensea.io/collection/mynft-cxsnftwcfq",
+  "MARKETPLACE_ITEMS_LINK": "https://opensea.io/assets/matic/0x8fd6e0ba0b05112f000037a7004392bed9f062b8",
   "ADDRESS_COLLECTING_FORM": "https://docs.google.com/forms/d/e/1FAIpQLSf7vt19AFWi50OM29C1eGtjJ31gUmK19VuUTZ3AgdbS97j0Dw/viewform",
   "EVENT_START_DATE": "Mon, 20 Dec 2021 00:00:00 GMT",
   "EVENT_END_DATE": "Mon, 20 Dec 2021 23:59:59 GMT"

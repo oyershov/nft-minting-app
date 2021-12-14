@@ -1,10 +1,134 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import styled from 'styled-components';
+import sweater from '../assets/images/sweater.png';
 import { connect } from "../redux/blockchain/actions";
 import { fetchData } from "../redux/contract-data/actions";
+import Timer from './Timer';
 
-const truncate = (input, len) =>
-  input.length > len ? `${input.substring(0, len)}...` : input;
+const StyledWrapper = styled.div`
+  align-items: center;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  padding 200px 0;
+`
+
+const StyledContainer = styled.div`
+  align-items: center;
+  background: #fff;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0 5vw;
+  max-width: 990px;
+  padding: 200px 86px 271px 86px;
+  width: 100%;
+`
+
+const StyledInfo = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: baseline;
+`
+
+const StyledImage = styled.img`
+  max-width: 100%;
+`
+
+const StyledPrimaryLink = styled.a`
+  align-items: center;
+  background: #00F436;
+  border-radius: 100px;
+  border: none;
+  color: #000000;
+  cursor: pointer;
+  display: flex;
+  font-family: 'SuisseIntl';
+  font-size: 25px;
+  font-style: normal;
+  font-weight: bold;
+  height: 90px;
+  justify-content: center;
+  letter-spacing: 0.05em;
+  line-height: 32px;
+  margin-bottom: 20px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 100%;
+`
+
+const StyledPrimaryButton = styled.button`
+  align-items: center;
+  background: #00F436;
+  border-radius: 100px;
+  border: none;
+  color: #000000;
+  cursor: pointer;
+  display: flex;
+  font-family: 'SuisseIntl';
+  font-size: 25px;
+  font-style: normal;
+  font-weight: bold;
+  height: 90px;
+  justify-content: center;
+  letter-spacing: 0.05em;
+  line-height: 32px;
+  margin-bottom: 20px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 100%;
+`
+
+const StyledSecondaryLink = styled.a`
+  align-items: center;
+  background: transparent;
+  border-radius: 100px;
+  border: 1px solid #000;
+  color: #000000;
+  cursor: pointer;
+  display: flex;
+  font-family: 'SuisseIntl';
+  font-size: 25px;
+  font-style: normal;
+  font-weight: bold;
+  height: 90px;
+  justify-content: center;
+  letter-spacing: 0.05em;
+  line-height: 32px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  width: 100%;
+`
+
+const StyledErrorMessage = styled.span`
+  color: #FF5B51;
+  font-family: 'SuisseIntl';
+  font-size: 25px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 32px;
+  margin-top: 20px;
+  text-align: left;
+  width: 100%;
+`
+
+const StyledSuccessMessage = styled.span`
+  color: #368E4F;
+  font-family: 'SuisseIntl';
+  font-size: 25px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 32px;
+  margin-top: 20px;
+  text-align: left;
+  width: 100%;
+`
 
 const Minting = () => {
   const dispatch = useDispatch();
@@ -41,9 +165,7 @@ const Minting = () => {
       })
       .then((receipt) => {
         console.log(receipt);
-        setStatus(
-          `WOW, the ${config.NFT_NAME} is yours! go visit Opensea.io to view it.`
-        );
+        setStatus('success');
         setClaimingNft(false);
         dispatch(fetchData(blockchain.account));
       });
@@ -56,54 +178,57 @@ const Minting = () => {
   };
 
   return (
-    <div>
-      <div>
-        <div>
-          <span>Minted sweaters: </span>
-          <span>{data.totalSupply}</span>
-        </div>
-        <div>
-          <span>Maximum possible sweaters to mint: </span>
-          <span>{config.MAX_SUPPLY}</span>
-        </div>
-      </div>
-      <div>
-        <a target="_blank" href={config.SCAN_LINK}>
-          {truncate(config.CONTRACT_ADDRESS, 15)}
-        </a>
-      </div>
-      {blockchain.account === "" || blockchain.smartContract === null ? (
-        <div>
-          <p>Connect to the {config.NETWORK.NAME} network</p>
-          <button
+    <StyledWrapper>
+      <StyledContainer>
+        <Timer currentEventPhase={2} />
+        <StyledInfo>
+          <div>
+            <span className="s2-text--variant-2">{data.totalSupply}</span>
+            <span className="s2-text--variant-2">/</span>
+            <span className="s2-text--variant-2">{config.MAX_SUPPLY}</span>
+          </div>
+          <span className="s2-text--variant-2">Minted sweaters</span>
+        </StyledInfo>
+        <StyledImage src={sweater} alt="Sweater" />
+        {status === 'success' && (
+          <StyledPrimaryLink
+            target="_blank"
+            href={`${config.MARKETPLACE_ITEMS_LINK}/${+data.totalSupply + 1}`}
+          >
+            → check out your sweater
+          </StyledPrimaryLink>
+        )}
+        {blockchain.account && blockchain.smartContract && status !== 'success' && (
+          <StyledPrimaryButton
+            disabled={claimingNft}
+            onClick={(e) => {
+              e.preventDefault();
+              claimNFTs();
+            }}
+          >
+            {claimingNft ? 'MINTING...' : 'MINT'}
+          </StyledPrimaryButton>
+        )}
+        {!(blockchain.account && blockchain.smartContract) && status !== 'success' && (
+          <StyledPrimaryButton
             onClick={(e) => {
               e.preventDefault();
               dispatch(connect());
               getData();
             }}
           >
-            Connect
-          </button>
-          {blockchain.errorMsg !== "" ? (
-            <span>{blockchain.errorMsg}</span>
-          ) : null}
-        </div>
-      ) : (
-        <div>
-          <p>Status: {status}</p>
-          <button
-            disabled={claimingNft}
-            onClick={(e) => {
-              e.preventDefault();
-              claimNFTs();
-              getData();
-            }}
-          >
-            {claimingNft ? 'BUSY' : 'MINT'}
-          </button>
-        </div>
-      )}
-    </div>
+            → connect to wallet
+          </StyledPrimaryButton>
+        )}
+        <StyledSecondaryLink target="_blank" href={config.MARKETPLACE_LINK}>→ check the collection</StyledSecondaryLink> 
+        {blockchain.errorMsg !== "" ? (
+          <StyledErrorMessage>{blockchain.errorMsg}</StyledErrorMessage>
+        ) : null}
+        {status === "success" ? (
+          <StyledSuccessMessage>Congrats! You just minted your sweater!</StyledSuccessMessage>
+        ) : null}
+      </StyledContainer>
+    </StyledWrapper>
   )
 };
 

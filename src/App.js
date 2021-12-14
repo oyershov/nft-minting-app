@@ -1,15 +1,20 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import image6 from './assets/images/image6.png';
+import ball from './assets/images/ball.png';
 import EventPhase from "./components/EventPhase";
+import HowTo from "./components/HowTo";
 import Minting from "./components/Minting";
+import MintingResults from "./components/MintingResults";
+import NFTInfo from "./components/NFTInfo";
 import WalletAddressCollecting from "./components/WalletAddressCollecting";
 import { fetchConfig } from "./redux/config/actions";
 import { fetchData } from "./redux/contract-data/actions";
 import { fetchToken } from "./redux/user-token/actions";
 
 export const StyledMain = styled.div`
+  background: #000;
+  color: #fff;
 `
 
 const StyledImageWrap = styled.div`
@@ -19,10 +24,11 @@ const StyledImageWrap = styled.div`
   margin-top: -400px;
   position: absolute;
   width: 100%;
+  z-index: 0;
 `
 
 const StyledImage = styled.img`
-  max-height: 460px;
+  max-width: 100%;
 `
 
 function App() {
@@ -77,6 +83,7 @@ function App() {
       <h1>Welcome to the S2 Ugly Sweater NFT Collection</h1>
       <p>Introduction</p>
       <EventPhase currentEventPhase={currentEventPhase}/>
+      <NFTInfo />
       {currentEventPhase === 1 && (
         <WalletAddressCollecting />
       )}
@@ -84,14 +91,12 @@ function App() {
         <Minting />
       )}
       {currentEventPhase === 3 && (
-        <a target="_blank" href={config.MARKETPLACE_LINK}>
-          Check the collection at {config.MARKETPLACE}
-        </a>
+        <MintingResults />
       )}
       <StyledImageWrap>
-        <StyledImage src={image6} alt="Ball" />
+        <StyledImage src={ball} alt="Ball" />
       </StyledImageWrap>
-      <p>How to</p>
+      <HowTo />
       <p>Q&A</p>
       <p>Team</p>
       <p>Footer</p>
