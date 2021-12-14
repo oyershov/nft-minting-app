@@ -23,7 +23,7 @@ const StyledContainer = styled.div`
 `
 
 const StyledTitleText = styled.p`
-  color: #000000;
+  color: #F9E000;
   font-family: 'SuisseIntl';
   font-size: 25px;
   font-style: normal;
@@ -35,7 +35,7 @@ const StyledTitleText = styled.p`
 `
 
 const StyledTimeText = styled.p`
-  color: #000000;
+  color: #F9E000;
   font-family: 'OggText';
   font-size: 60px;
   font-style: normal;
