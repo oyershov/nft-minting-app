@@ -3,13 +3,13 @@ import thunk from "redux-thunk";
 import blockchainReducer from "./blockchain/reducers";
 import configReducer from "./config/reducers";
 import dataReducer from "./contract-data/reducers";
-import tokenReducer from "./user-token/reducers";
+import loginReducer from "./login/reducers";
 
 const rootReducer = combineReducers({
   blockchain: blockchainReducer,
   config: configReducer,
   data: dataReducer,
-  token: tokenReducer
+  login: loginReducer
 });
 
 const middleware = [thunk];

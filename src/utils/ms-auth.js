@@ -1,4 +1,4 @@
-import { inject, provide } from 'vue'
+import { createContext } from 'react';
 import { PublicClientApplication } from '@azure/msal-browser'
 
 export class MSAuthenticationProvider {
@@ -87,12 +87,5 @@ export class MSAuthenticationProvider {
   }
 }
 
-const MSAuthenticationProviderSymbol = Symbol('MSAuthenticationProviderSymbol')
-
-export function useMSAuthenticationProvider(authProvider) {
-  provide(MSAuthenticationProviderSymbol, authProvider)
-}
-
-export function useMSAuthenticationContext() {
-  return inject(MSAuthenticationProviderSymbol)
-}
+export const MSAuthenticationProviderSymbol = Symbol('MSAuthenticationProviderSymbol')
+export const MSAuthentication = createContext({authProvider: undefined});

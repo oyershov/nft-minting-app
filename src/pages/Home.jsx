@@ -10,7 +10,6 @@ import NFTInfo from "../components/NFTInfo";
 import WalletAddressCollecting from "../components/WalletAddressCollecting";
 import { fetchConfig } from "../redux/config/actions";
 import { fetchData } from "../redux/contract-data/actions";
-import { fetchToken } from "../redux/user-token/actions";
 
 export const StyledMain = styled.div`
   background: #000;
@@ -35,7 +34,6 @@ function Home() {
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
   const { config } = useSelector((state) => state.config);
-  const { accentureAccessToken } = useSelector((state) => state.token);
 
   const dateNow = new Date();
   const eventStartDate = new Date(config.EVENT_START_DATE);
@@ -43,7 +41,6 @@ function Home() {
 
   useEffect(() => {
     dispatch(fetchConfig())
-    dispatch(fetchToken())
   }, []);
 
   useEffect(() => {
